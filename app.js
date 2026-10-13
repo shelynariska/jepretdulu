@@ -29,21 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
       rotate: 'rot-pos-1'
     },
     {
-      src: 'assets/gallery/nongki_3.jpg',
+      src: 'assets/gallery/nongki_8.jpg',
       category: 'Cafe Date',
       alt: 'Momen kasual di meja cafe',
       caption: 'little moments',
       rotate: 'rot-neg-2'
     },
     {
-      src: 'assets/gallery/nongki_8.jpg',
+      src: 'assets/gallery/nongki_1.jpg',
       category: 'Portrait',
       alt: 'Portrait playful dengan direct flash',
       caption: 'click!',
       rotate: 'rot-pos-2'
     },
     {
-      src: 'assets/gallery/nongki_1.jpg',
+      src: 'assets/gallery/nongki_10.jpg',
       category: 'Cafe Date',
       alt: 'Portrait kasual santai',
       caption: 'hangout time',
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
       rotate: 'rot-neg-1'
     },
     {
-      src: 'assets/gallery/nongki_10.jpg',
+      src: 'assets/gallery/nongki_3.jpg',
       category: 'Portrait',
       alt: 'Portrait playful ala digicam',
       caption: 'chill afternoon',
