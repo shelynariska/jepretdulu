@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jepret Dulu! — Casual Photography Surabaya</title>
+  <meta name="description" content="Casual photography for your everyday memories. Momen nongkrong, OOTD, bestie, wisuda, sempro di Surabaya. Tone hangat, direct flash, dan no awkward pose.">
+  <link rel="icon" href="assets/figma_thumbnail.png" type="image/png">
+
+  <!-- Google Fonts: DM Sans, Nunito Sans, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Nunito+Sans:opsz,wght@6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================
+       HEADER / NAVBAR
+       ========================================================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand-link" aria-label="Jepret Dulu! home">
+        <div class="brand-icon">
+          <svg aria-hidden="true" width="20" height="20" fill="none" viewBox="0 0 24 24">
+            <path d="M4 8.5h3l1.5-2h7l1.5 2h3v10H4z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"/>
+            <circle cx="12" cy="13.5" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <span class="brand-text">Jepret Dulu!</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav" aria-label="Navigasi utama">
+        <a href="#home" class="nav-item">Home</a>
+        <a href="#price" class="nav-item">Price List</a>
+        <a href="#portfolio" class="nav-item">Portfolio</a>
+        <a href="#terms" class="nav-item">T&amp;C</a>
+        <a href="#booking" class="button-primary" style="min-height: 2.85rem; padding: 0.6rem 1.4rem;">
+          Booking
+          <svg aria-hidden="true" width="16" height="16" fill="none" viewBox="0 0 24 24">
+            <path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          </svg>
+        </a>
+      </nav>
+
+      <button class="menu-toggle-btn" id="menuToggle" aria-label="Toggle navigation" type="button">
+        <span id="menuIcon">≡</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       HERO SECTION
+       ========================================================= -->
+  <main>
+    <section class="hero-section" id="home">
+      <div class="hero-hand-say">say cheese!</div>
+      <div class="hero-heart-dec">♡</div>
+
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <div class="hero-eyebrow">
+            <span class="hero-eyebrow-line"></span>
+            Casual photography · Surabaya
+          </div>
+
+          <h1 class="hero-h1">
+            Life happens.
+            <span class="hero-h1-accent">
+              Jepret dulu!
+              <span class="hero-underline-curve"></span>
+            </span>
+          </h1>
+
+          <p class="hero-paragraph">
+            Casual photography for your everyday memories. Buat momen nongkrong, OOTD, bestie, sampai hari spesialmu terasa lebih hidup.
+          </p>
+
+          <div class="hero-btn-row">
+            <a href="#booking" class="button-primary">
+              Book Your Session
+              <svg aria-hidden="true" width="16" height="16" fill="none" viewBox="0 0 24 24">
+                <path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+            </a>
+            <a href="#portfolio" class="button-secondary">
+              See Our Portfolio
+              <svg aria-hidden="true" width="16" height="16" fill="none" viewBox="0 0 24 24">
+                <path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="hero-pills-features">
+            <span>Canon M10</span>
+            <span>•</span>
+            <span>Direct flash</span>
+            <span>•</span>
+            <span>No awkward pose</span>
+          </div>
+        </div>
+
+        <!-- Polaroid Collage (Overlapping) -->
+        <div class="hero-polaroid-wrap">
+          <!-- Polaroid 1 (Left: Sunset beach with hijab) -->
+          <div class="polaroid-card polaroid-1">
+            <img src="assets/gallery/nongki_3.jpg" alt="Portrait saat sunset di pantai Surabaya">
+            <span class="polaroid-hand-caption">golden hour in SBY ♡</span>
+          </div>
+
+          <!-- Polaroid 2 (Top Right: Casual flash in grey top) -->
+          <div class="polaroid-card polaroid-2">
+            <img src="assets/gallery/nongki_4.jpg" alt="Portrait casual playful dengan flash">
+            <span class="polaroid-hand-caption">click!</span>
+          </div>
+
+          <!-- Polaroid 3 (Bottom Right: Warm cafe moments) -->
+          <div class="polaroid-card polaroid-3">
+            <img src="assets/gallery/nongki_8.jpg" alt="Warm cafe moments di sudut cafe Surabaya">
+            <span class="polaroid-hand-caption">little moments</span>
+          </div>
+
+          <!-- Sticker Pill -->
+          <div class="hero-sticker-pill">
+            your memories, our camera
+          </div>
+        </div>
+      </div>
+
+      <!-- Marquee Bar -->
+      <div class="marquee-bar">
+        <div class="marquee-track">
+          <div class="marquee-item">Nongkrong <b>♡</b> OOTD <b>♡</b> Bestie <b>♡</b> Ulang Tahun <b>♡</b> Wisuda <b>♡</b> Sempro <b>♡</b> Semhas</div>
+          <div class="marquee-item">Nongkrong <b>♡</b> OOTD <b>♡</b> Bestie <b>♡</b> Ulang Tahun <b>♡</b> Wisuda <b>♡</b> Sempro <b>♡</b> Semhas</div>
+          <div class="marquee-item">Nongkrong <b>♡</b> OOTD <b>♡</b> Bestie <b>♡</b> Ulang Tahun <b>♡</b> Wisuda <b>♡</b> Sempro <b>♡</b> Semhas</div>
+          <div class="marquee-item">Nongkrong <b>♡</b> OOTD <b>♡</b> Bestie <b>♡</b> Ulang Tahun <b>♡</b> Wisuda <b>♡</b> Sempro <b>♡</b> Semhas</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         PRICE LIST SECTION
+         ========================================================= -->
+    <section class="price-section" id="price">
+      <div class="price-hand-note">pick your moment!</div>
+
+      <div class="container">
+        <div class="section-head-center">
+          <div class="tag-pill"><span class="tag-dot"></span> Price list</div>
+          <h2 class="section-title">Simple price, <span style="font-family: var(--font-hand); font-weight: normal; color: var(--color-rose);">sweet memories.</span></h2>
+          <p class="section-subtext">Pilih sesi yang paling pas untuk ceritamu. Santai aja, kami bantu arahin pose juga.</p>
+        </div>
+
+        <div class="pricing-cards-grid">
+          <!-- Card 1: Nongkrong Cantik -->
+          <article class="price-card price-card-pink">
+            <div>
+              <div class="card-top-badge">
+                <span class="pill-light">Casual favorite</span>
+                <span class="card-hand-tag">bestie date!</span>
+              </div>
+              <h3 class="package-title">Nongkrong Cantik</h3>
+              <p class="package-sub">1 sesi · Cafe date, OOTD, hangout, dan bestie.</p>
+              <div class="package-price-val">Rp40.000</div>
+              <div class="card-divider"></div>
+              <ul class="check-list">
+                <li class="check-item">30 menit sesi foto</li>
+                <li class="check-item">Untuk 1–2 orang</li>
+                <li class="check-item">Sudah termasuk transport (ketemu di venue)</li>
+                <li class="check-item">Semua soft file tanpa edit via Google Drive</li>
+                <li class="check-item">Estimasi kirim tercepat malam sesi / maks. H+1</li>
+              </ul>
+            </div>
+            <button class="button-primary select-pkg-btn" data-package="Nongkrong Cantik" type="button" style="width: 100%;">
+              Choose Package
+              <svg aria-hidden="true" width="16" height="16" fill="none" viewBox="0 0 24 24">
+                <path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+            </button>
+          </article>
+
+          <!-- Card 2: Special Moments -->
+          <article class="price-card price-card-butter">
+            <span class="card-ribbon-badge">Most fun!</span>
+            <div>
+              <div class="card-top-badge">
+                <span class="pill-light">Foto Grup &amp; Big Day</span>
+              </div>
+              <h3 class="package-title">Special Moments</h3>
+              <p class="package-sub">Foto grup · Birthday, wisuda, sempro, dan semhas.</p>
+              <div class="package-price-val">Rp65.000</div>
+              <div class="card-divider"></div>
+              <ul class="check-list">
+                <li class="check-item">30 menit sesi foto</li>
+                <li class="check-item">Untuk 3–5 orang</li>
+                <li class="check-item">Sudah termasuk transport (ketemu di venue)</li>
+                <li class="check-item">Semua soft file tanpa edit via Google Drive</li>
+                <li class="check-item">Estimasi kirim tercepat malam sesi / maks. H+1</li>
+              </ul>
+            </div>
+            <button class="button-primary select-pkg-btn" data-package="Special Moments" type="button" style="width: 100%;">
+              Choose Package
+              <svg aria-hidden="true" width="16" height="16" fill="none" viewBox="0 0 24 24">
+                <path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+            </button>
+          </article>
+        </div>
+
+        <div class="price-notice-box">
+          DP 50% untuk booking &amp; pelunasan setelah bertemu di venue · Sudah termasuk transport fotografer (ketemu di venue) · Tanpa sistem overtime (tersedia opsi tambah sesi) · Soft file via Google Drive tanpa edit (dikirim tercepat malam hari / maksimal H+1) · Reschedule minimal H-1.
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         PORTFOLIO SECTION
+         ========================================================= -->
+    <section class="portfolio-section" id="portfolio">
+      <div class="container">
+        <div class="portfolio-head">
+          <div>
+            <div class="tag-pill"><span class="tag-dot"></span> Our little archive</div>
+            <h2 class="section-title">Real people, real laughs, <span style="font-family: var(--font-hand); font-weight: normal; color: var(--color-rose);">real memories.</span></h2>
+          </div>
+          <p class="portfolio-desc">
+            Hasil foto asli Jepret Dulu! dengan karakter direct flash yang hangat, jujur, dan tetap kamu banget.
+          </p>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="portfolio-filters" role="group" aria-label="Filter portfolio">
+          <button class="filter-btn active" data-filter="All" type="button">All</button>
+          <button class="filter-btn" data-filter="Portrait" type="button">Portrait</button>
+          <button class="filter-btn" data-filter="Cafe Date" type="button">Cafe Date</button>
+          <button class="filter-btn" data-filter="Wisuda" type="button">Wisuda</button>
+          <button class="filter-btn" data-filter="Special Moments" type="button">Special Moments</button>
+        </div>
+
+        <!-- Polaroid Masonry Gallery Grid -->
+        <div class="portfolio-masonry" id="portfolioGrid">
+          <!-- Populated by JavaScript with all 19 photos -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         TERMS & CONDITIONS (T&C) SECTION
+         ========================================================= -->
+    <section class="terms-section" id="terms">
+      <div class="container terms-grid">
+        <div>
+          <div class="tag-pill"><span class="tag-dot"></span> Before we click</div>
+          <h2 class="section-title">Biar sesi tetap <span style="font-family: var(--font-hand); font-weight: normal; color: var(--color-rose);">happy!</span></h2>
+          <p class="section-subtext" style="text-align: left; margin: 1.25rem 0 0 0;">
+            Baca dulu ketentuannya supaya sesi foto kita berjalan nyaman, santai, dan tanpa kejutan.
+          </p>
+          <div class="terms-photo-box">
+            <img src="assets/gallery/nongki_1.jpg" alt="Portrait cafe Jepret Dulu">
+            <p>we'll make it fun ♡</p>
+          </div>
+        </div>
+
+        <div class="accordion-wrapper" id="termsAccordion">
+          <!-- Item 1 -->
+          <article class="accordion-item open">
+            <button class="accordion-trigger" type="button" aria-expanded="true">
+              <span class="accordion-title">01. DP 50% &amp; Pelunasan di Venue</span>
+              <span class="accordion-icon">−</span>
+            </button>
+            <div class="accordion-body">
+              Booking jadwal terkonfirmasi setelah pembayaran DP sebesar 50%. Sisa pelunasan 50% dibayarkan setelah bertemu langsung di venue pemotretan.
+            </div>
+          </article>
+
+          <!-- Item 2 -->
+          <article class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false">
+              <span class="accordion-title">02. Durasi Sesi &amp; Keterlambatan</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-body">
+              Durasi sesi pemotretan mengikuti paket yang dipilih (30 menit) dan dimulai sesuai jam booking yang disepakati. Keterlambatan dari pihak klien akan memotong durasi sesi agar tidak mengganggu jadwal berikutnya.
+            </div>
+          </article>
+
+          <!-- Item 3 -->
+          <article class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false">
+              <span class="accordion-title">03. Tanpa Overtime (Opsi Tambah Sesi)</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-body">
+              Kami tidak memberlakukan sistem overtime hitungan menit. Apabila Anda ingin durasi pemotretan lebih lama, Anda dapat mengambil opsi penambahan sesi (menyesuaikan ketersediaan slot fotografer).
+            </div>
+          </article>
+
+          <!-- Item 4 -->
+          <article class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false">
+              <span class="accordion-title">04. Transportasi &amp; Titik Temu</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-body">
+              Harga paket sudah termasuk biaya transportasi fotografer (langsung bertemu di venue yang disepakati). Namun untuk tiket masuk lokasi berbayar atau minimum order cafe klien menjadi tanggungan masing-masing.
+            </div>
+          </article>
+
+          <!-- Item 5 -->
+          <article class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false">
+              <span class="accordion-title">05. Hasil Foto via Google Drive (Tanpa Edit)</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-body">
+              Seluruh soft file yang layak akan dikirimkan melalui link Google Drive tanpa diedit lagi (hasil natural/direct flash look). Estimasi pengiriman paling cepat dikirim pada malam harinya setelah sesi, dan paling lambat H+1.
+            </div>
+          </article>
+
+          <!-- Item 6 -->
+          <article class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false">
+              <span class="accordion-title">06. Reschedule Minimal H-1</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-body">
+              Perubahan jadwal (reschedule) dapat dilakukan dengan konfirmasi kepada admin paling lambat H-1 sebelum waktu sesi berlangsung, disesuaikan dengan ketersediaan slot kosong fotografer.
+            </div>
+          </article>
+
+          <!-- Item 7 -->
+          <article class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false">
+              <span class="accordion-title">07. Privasi &amp; Publikasi</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-body">
+              Foto hanya akan digunakan sebagai portfolio Jepret Dulu! atas persetujuan klien. Sampaikan kepada admin/fotografer jika hasil foto Anda tidak boleh dipublikasikan.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BOOKING SECTION
+         ========================================================= -->
+    <section class="booking-section" id="booking">
+      <div class="container">
+        <div class="booking-dark-card">
+          <span class="booking-heart-bg">♡</span>
+          <span class="booking-click-bg">click!</span>
+
+          <div class="booking-content-grid">
+            <div class="booking-info">
+              <p class="booking-eyebrow">Book your session</p>
+              <h2 class="booking-heading">Your moment deserves to be remembered.</h2>
+              <p class="booking-subtext">
+                Isi detail singkat, lalu booking akan dilanjutkan melalui WhatsApp untuk pengecekan jadwal dan lokasi.
+              </p>
+
+              <div class="booking-loc-row">
+                <div class="booking-loc-icon">
+                  <svg aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path d="M4 8.5h3l1.5-2h7l1.5 2h3v10H4z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"/>
+                    <circle cx="12" cy="13.5" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+                  </svg>
+                </div>
+                <div>
+                  <p style="font-weight: 700; font-size: 1.05rem;">Based in Surabaya</p>
+                  <p style="font-size: 0.85rem; color: rgba(255, 248, 237, 0.65);">Cafe hopping &amp; special moments</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Booking Form Box -->
+            <div class="booking-form-box">
+              <form id="bookingForm" novalidate>
+                <div class="form-grid-fields">
+                  <label class="field-label col-span-2">
+                    Pilih paket
+                    <select class="field" id="packageSelect" name="package" required>
+                      <option value="Nongkrong Cantik (1 Sesi — Rp40.000)">Nongkrong Cantik (1 Sesi — Rp40.000)</option>
+                      <option value="Special Moments (Foto Grup — Rp65.000)">Special Moments (Foto Grup — Rp65.000)</option>
+                    </select>
+                  </label>
+
+                  <label class="field-label">
+                    Nama
+                    <input type="text" class="field" id="nameInput" name="name" placeholder="Nama kamu" required>
+                  </label>
+
+                  <label class="field-label">
+                    Jumlah orang
+                    <input type="number" class="field" id="peopleInput" name="people" placeholder="Contoh: 2" min="1" required>
+                  </label>
+
+                  <label class="field-label">
+                    Tanggal
+                    <input type="date" class="field" id="dateInput" name="date" required>
+                  </label>
+
+                  <label class="field-label">
+                    Jam
+                    <input type="time" class="field" id="timeInput" name="time" required>
+                  </label>
+
+                  <label class="field-label col-span-2">
+                    Lokasi
+                    <input type="text" class="field" id="locationInput" name="location" placeholder="Nama cafe / venue di Surabaya" required>
+                  </label>
+                </div>
+
+                <label class="checkbox-label">
+                  <input type="checkbox" id="termsCheckbox" name="terms" required>
+                  <span>Saya sudah membaca dan menyetujui T&amp;C Jepret Dulu! sebelum melanjutkan booking.</span>
+                </label>
+
+                <div class="form-error-text" id="formError" style="display: none;"></div>
+
+                <button type="submit" class="button-butter" style="margin-top: 1.5rem; width: 100%; min-height: 3.25rem;">
+                  Continue to WhatsApp
+                  <svg aria-hidden="true" width="16" height="16" fill="none" viewBox="0 0 24 24">
+                    <path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                  </svg>
+                </button>
+
+                <p class="form-footnote">
+                  Booking jadwal terkonfirmasi setelah DP 50%. Pelunasan 50% dibayarkan setelah bertemu di venue.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="#home" class="brand-link" aria-label="Jepret Dulu! home">
+        <div class="brand-icon">
+          <svg aria-hidden="true" width="20" height="20" fill="none" viewBox="0 0 24 24">
+            <path d="M4 8.5h3l1.5-2h7l1.5 2h3v10H4z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"/>
+            <circle cx="12" cy="13.5" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <span class="brand-text">Jepret Dulu!</span>
+      </a>
+
+      <p class="footer-love-motto">Little moments, big memories ♡</p>
+
+      <p class="footer-copy">© 2025 Jepret Dulu! · Surabaya</p>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       LIGHTBOX PREVIEW MODAL
+       ========================================================= -->
+  <div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true" aria-label="Preview foto">
+    <button class="lightbox-close-btn" id="lightboxClose" aria-label="Tutup preview" type="button">×</button>
+    <div class="lightbox-img-wrap">
+      <img id="lightboxImg" src="" alt="Preview foto">
+      <p class="lightbox-caption-tag" id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
