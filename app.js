@@ -302,10 +302,49 @@ document.addEventListener('DOMContentLoaded', () => {
   const termsCheckbox = document.getElementById('termsCheckbox');
   const formError = document.getElementById('formError');
   const dateInput = document.getElementById('dateInput');
+  const timeInput = document.getElementById('timeInput');
+  const timeSlotNotice = document.getElementById('timeSlotNotice');
 
   // Set min date to today
   if (dateInput) {
     dateInput.min = new Date().toISOString().split('T')[0];
+
+    function checkScheduleAvailability() {
+      const dateVal = dateInput.value;
+      if (!dateVal) {
+        if (timeSlotNotice) {
+          timeSlotNotice.style.display = 'none';
+          timeSlotNotice.innerHTML = '';
+        }
+        if (timeInput) timeInput.removeAttribute('min');
+        return;
+      }
+
+      const [y, m, d] = dateVal.split('-').map(Number);
+      const chosenDate = new Date(y, m - 1, d);
+      const day = chosenDate.getDay(); // 0 is Sunday, 6 is Saturday
+
+      if (day >= 1 && day <= 5) {
+        // Weekday (Senin - Jumat) -> Only after 18:00
+        if (timeInput) timeInput.min = '18:00';
+        if (timeSlotNotice) {
+          timeSlotNotice.className = 'col-span-2 time-notice weekday-notice';
+          timeSlotNotice.innerHTML = '🌙 <strong>Sesi Weekday (Senin–Jumat):</strong> Sesi hanya tersedia di atas pukul <strong>18.00 WIB</strong> (sesi malam).';
+          timeSlotNotice.style.display = 'block';
+        }
+      } else {
+        // Weekend (Sabtu & Minggu) -> Flexible all day
+        if (timeInput) timeInput.removeAttribute('min');
+        if (timeSlotNotice) {
+          timeSlotNotice.className = 'col-span-2 time-notice weekend-notice';
+          timeSlotNotice.innerHTML = '☀️ <strong>Sesi Weekend (Sabtu–Minggu):</strong> Ketersediaan fleksibel seharian.';
+          timeSlotNotice.style.display = 'block';
+        }
+      }
+    }
+
+    dateInput.addEventListener('change', checkScheduleAvailability);
+    dateInput.addEventListener('input', checkScheduleAvailability);
   }
 
   if (bookingForm) {
@@ -331,9 +370,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const people = formData.get('people');
       const date = formData.get('date');
       const time = formData.get('time');
+      const area = (formData.get('area') || '').trim();
       const location = (formData.get('location') || '').trim();
 
-      if (!name || !people || !date || !time || !location) {
+      if (!name || !people || !date || !time || !area || !location) {
         if (formError) {
           formError.textContent = 'Harap lengkapi seluruh formulir booking.';
           formError.style.display = 'block';
@@ -341,19 +381,40 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Exact WhatsApp message template from Figma Make
+      // Validate Weekday vs Weekend schedule
+      const [year, month, day] = date.split('-').map(Number);
+      const bookingDate = new Date(year, month - 1, day);
+      const dayOfWeek = bookingDate.getDay(); // 0: Sun, 6: Sat, 1-5: Mon-Fri
+      const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;
+
+      if (isWeekday && time < '18:00') {
+        if (formError) {
+          formError.textContent = 'Untuk hari Senin–Jumat (weekday), sesi foto hanya tersedia di atas pukul 18.00 WIB. Silakan pilih jam 18.00 ke atas atau pilih hari Sabtu/Minggu.';
+          formError.style.display = 'block';
+        }
+        if (timeInput) timeInput.focus();
+        return;
+      }
+
+      const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const dayName = dayNames[dayOfWeek];
+
+      // WhatsApp message template with area, venue, & transport info
       const messageLines = [
         'Halo Jepret Dulu! Aku mau booking sesi foto.',
         '',
         `Paket: ${pkg}`,
         `Nama: ${name}`,
-        `Tanggal: ${date}`,
-        `Jam: ${time}`,
+        `Hari / Tanggal: ${dayName}, ${date}`,
+        `Jam: ${time} WIB`,
         `Jumlah orang: ${people}`,
-        `Lokasi: ${location}`,
+        `Wilayah: ${area}`,
+        `Lokasi Venue: ${location}`,
+        'Ket. Transport: Exclude transport (biaya transport menyesuaikan lokasi venue)',
+        'Ket. Tempat: Cafe / kampus free izin kamera (jika ada charge kamera ditanggung customer)',
         '',
-        'Sistem Pembayaran: DP 50% (Pelunasan 50% setelah bertemu di venue).',
-        'Aku sudah membaca dan menyetujui T&C Jepret Dulu! (Termasuk ketentuan Reschedule min. H-1, tanpa overtime/opsi tambah sesi, & hasil GDrive tanpa edit). Mohon cek ketersediaan jadwalnya, ya!'
+        'Sistem Pembayaran: DP 50% (Pelunasan 50% setelah bertemu admin di venue).',
+        'Aku sudah membaca dan menyetujui T&C Jepret Dulu! (Termasuk ketentuan Reschedule min. H-1, jadwal weekend fleksibel / weekday > 18.00 WIB, tanpa overtime, & hasil GDrive tanpa edit). Mohon cek ketersediaan jadwalnya, ya!'
       ];
 
       const waText = messageLines.join('\n');
