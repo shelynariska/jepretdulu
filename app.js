@@ -418,7 +418,8 @@ document.addEventListener('DOMContentLoaded', () => {
       ];
 
       const waText = messageLines.join('\n');
-      const waUrl = `https://wa.me/?text=${encodeURIComponent(waText)}`;
+      const waNumber = '62895629537139';
+      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`;
 
       window.open(waUrl, '_blank', 'noopener,noreferrer');
     });
