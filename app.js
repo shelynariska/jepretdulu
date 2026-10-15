@@ -410,11 +410,11 @@ document.addEventListener('DOMContentLoaded', () => {
         `Jumlah orang: ${people}`,
         `Wilayah: ${area}`,
         `Lokasi Venue: ${location}`,
-        'Ket. Transport: FREE Transport (Promo area Surabaya)',
+        'Ket. Transport: FREE Transport (khusus lokasi jauh ada fee yang menyesuaikan)',
         'Ket. Tempat: Cafe / kampus free izin kamera (jika ada charge kamera ditanggung customer)',
         '',
         'Sistem Pembayaran: DP 50% (Pelunasan 50% setelah bertemu admin di venue).',
-        'Aku sudah membaca dan menyetujui T&C Jepret Dulu! (Termasuk promo Free Transport Surabaya, ketentuan Reschedule min. H-1, jadwal weekend fleksibel / weekday > 18.00 WIB, tanpa overtime, & hasil GDrive tanpa edit). Mohon cek ketersediaan jadwalnya, ya!'
+        'Aku sudah membaca dan menyetujui T&C Jepret Dulu! (Termasuk ketentuan Free Transport / fee menyesuaikan jika lokasi jauh, reschedule min. H-1, jadwal weekend fleksibel / weekday > 18.00 WIB, tanpa overtime, & hasil GDrive tanpa edit). Mohon cek ketersediaan jadwalnya, ya!'
       ];
 
       const waText = messageLines.join('\n');

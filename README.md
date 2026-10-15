@@ -6,9 +6,9 @@ Website resmi jasa fotografi **Jepret Dulu!** untuk sesi foto santai, OOTD cafe 
 
 ## ✨ Fitur Website
 - **Hero Showcase**: Kolase foto polaroid dinamis bergaya estetik.
-- **Price List**: Paket *Nongkrong Cantik* (Promo Rp35.000) dan *Special Moments / Foto Grup* (Promo Rp55.000) dengan promo **FREE Transport Surabaya**.
+- **Price List**: Paket *Nongkrong Cantik* (Promo Rp35.000) dan *Special Moments / Foto Grup* (Promo Rp55.000) dengan **FREE Transport Surabaya** (lokasi jauh fee menyesuaikan).
 - **Portfolio Gallery**: Galeri foto asli dengan filter kategori (*All, Portrait, Cafe Date, Wisuda, Special Moments*) dan fitur Lightbox modal.
-- **Terms & Conditions (T&C)**: Akordion interaktif seputar DP 50% (Rp17.500 / Rp27.500), pelunasan di venue, ketersediaan jadwal (Sabtu & Minggu fleksibel seharian, weekday di atas jam 18.00 WIB), promo FREE transport admin area Surabaya, ketentuan tempat di cafe/kampus free izin kamera (charge kamera ditanggung customer), hasil via Google Drive, dan reschedule minimal H-1.
+- **Terms & Conditions (T&C)**: Akordion interaktif seputar DP 50% (Rp17.500 / Rp27.500), pelunasan di venue, ketersediaan jadwal (Sabtu & Minggu fleksibel seharian, weekday di atas jam 18.00 WIB), FREE transport admin (lokasi jauh fee menyesuaikan), ketentuan tempat di cafe/kampus free izin kamera (charge kamera ditanggung customer), hasil via Google Drive, dan reschedule minimal H-1.
 - **Automated WhatsApp Booking**: Form pemesanan pintar dengan validasi ketersediaan jadwal (weekend seharian & weekday khusus malam di atas jam 18.00 WIB), kalkulasi/format data otomatis, dan langsung terhubung ke WhatsApp Business.
 
 ## 🚀 Live Demo
