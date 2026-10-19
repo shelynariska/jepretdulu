@@ -6,10 +6,10 @@ Website resmi jasa fotografi **Jepret Dulu!** untuk sesi foto santai, OOTD cafe 
 
 ## ✨ Fitur Website
 - **Hero Showcase**: Kolase foto polaroid dinamis bergaya estetik.
-- **Price List**: Paket *Nongkrong Cantik* (Promo Rp35.000) dan *Special Moments / Foto Grup* (Promo Rp55.000) dengan **FREE Transport Surabaya** (lokasi jauh fee menyesuaikan).
+- **Price List & Add-Ons**: Paket *Nongkrong Cantik* (Promo Rp35.000 / kuota 1 orang) dan *Special Moments* (Promo Rp55.000 / kuota 1 orang) dengan **FREE Transport Surabaya** (lokasi jauh fee menyesuaikan). Dilengkapi opsi tambahan (*Add-ons*): Nambah sesi/durasi (+10 menit = Rp15.000 atau +20 menit = Rp30.000, nambah 30 menit ke atas terhitung 2 sesi) dan Tambah person/orang (+1 orang = Rp10.000).
 - **Portfolio Gallery**: Galeri foto asli dengan filter kategori (*All, Portrait, Cafe Date, Wisuda, Special Moments*) dan fitur Lightbox modal.
-- **Terms & Conditions (T&C)**: Akordion interaktif seputar DP 50% (Rp17.500 / Rp27.500), pelunasan di venue, ketersediaan jadwal (Sabtu & Minggu fleksibel seharian, weekday di atas jam 18.00 WIB), FREE transport admin (lokasi jauh fee menyesuaikan), ketentuan tempat di cafe/kampus free izin kamera (charge kamera ditanggung customer), hasil via Google Drive, dan reschedule minimal H-1.
-- **Automated WhatsApp Booking**: Form pemesanan pintar dengan validasi ketersediaan jadwal (weekend seharian & weekday khusus malam di atas jam 18.00 WIB), kalkulasi/format data otomatis, dan langsung terhubung ke WhatsApp Business.
+- **Terms & Conditions (T&C)**: Akordion interaktif seputar DP 50%, pelunasan di venue, ketersediaan jadwal (Sabtu & Minggu fleksibel seharian, weekday di atas jam 18.00 WIB), opsi penambahan durasi & orang, FREE transport (lokasi jauh fee menyesuaikan), ketentuan cafe/kampus free izin kamera, hasil via Google Drive tanpa edit, dan reschedule minimal H-1.
+- **Automated WhatsApp Booking**: Form pemesanan pintar dengan kalkulasi real-time (paket dasar, durasi tambahan, penambahan person, total estimasi, dan DP 50%), validasi ketersediaan jadwal, serta integrasi pemesanan langsung ke WhatsApp Business.
 
 ## 🚀 Live Demo
 Website ini dapat diakses langsung melalui GitHub Pages:  

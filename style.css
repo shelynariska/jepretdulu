@@ -654,23 +654,27 @@ button, input, select {
 }
 
 .check-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  position: relative;
+  padding-left: 2rem;
+  line-height: 1.5;
+  color: var(--color-coffee);
 }
 
 .check-item::before {
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
   background: var(--color-coffee);
   width: 1.35rem;
   height: 1.35rem;
   color: var(--color-cream);
   content: "✓";
   border-radius: 9999px;
-  flex: none;
   display: grid;
   place-items: center;
   font-size: 0.72rem;
   font-weight: 800;
+  line-height: 1;
 }
 
 .price-notice-box {
@@ -685,6 +689,146 @@ button, input, select {
   line-height: 1.6;
   color: rgba(121, 86, 61, 0.7);
 }
+
+/* Opsi Tambahan (Add-ons) in Pricing Section */
+.addons-container {
+  margin: 3rem auto 0;
+  max-width: 64rem;
+  background: #ffffff;
+  border: 2px solid var(--color-coffee);
+  border-radius: 1.5rem;
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+
+@media (min-width: 640px) {
+  .addons-container {
+    padding: 2.25rem;
+  }
+}
+
+.addons-header {
+  text-align: center;
+  max-width: 38rem;
+  margin: 0 auto 1.75rem;
+}
+
+.addons-badge {
+  display: inline-block;
+  background-color: var(--color-butter);
+  color: var(--color-coffee);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(121, 86, 61, 0.3);
+  margin-bottom: 0.6rem;
+}
+
+.addons-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: var(--color-coffee);
+  line-height: 1.25;
+}
+
+.addons-desc {
+  font-size: 0.88rem;
+  color: rgba(121, 86, 61, 0.75);
+  margin-top: 0.35rem;
+}
+
+.addons-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .addons-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.addon-card {
+  background-color: var(--color-cream);
+  border: 1.5px solid rgba(121, 86, 61, 0.2);
+  border-radius: 1.15rem;
+  padding: 1.35rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.addon-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(121, 86, 61, 0.12);
+  border-color: var(--color-coffee);
+}
+
+.addon-icon-badge {
+  font-size: 1.75rem;
+  flex: none;
+  width: 3.2rem;
+  height: 3.2rem;
+  background: #ffffff;
+  border: 1px solid rgba(121, 86, 61, 0.2);
+  border-radius: 0.85rem;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 10px rgba(121, 86, 61, 0.08);
+}
+
+.addon-info {
+  flex: 1;
+}
+
+.addon-top {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.4rem;
+}
+
+@media (min-width: 480px) {
+  .addon-top {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+}
+
+.addon-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-coffee);
+}
+
+.addon-price {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--color-rose);
+  white-space: nowrap;
+}
+
+.addon-price small {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(121, 86, 61, 0.65);
+}
+
+.addon-detail {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(121, 86, 61, 0.75);
+}
+
 
 /* =========================================================
    PORTFOLIO SECTION
@@ -1222,6 +1366,119 @@ button, input, select {
   line-height: 1.5;
   color: rgba(121, 86, 61, 0.55);
 }
+
+.field-hint {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: rgba(121, 86, 61, 0.7);
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+/* Booking Live Price Calculator Card */
+.booking-calc-card {
+  margin-top: 0.5rem;
+  background: #ffffff;
+  border: 1.5px solid rgba(121, 86, 61, 0.25);
+  border-radius: 1.15rem;
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 6px 18px rgba(121, 86, 61, 0.08);
+}
+
+.calc-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed rgba(121, 86, 61, 0.2);
+}
+
+.calc-card-icon {
+  font-size: 1.15rem;
+}
+
+.calc-card-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-coffee);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.calc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: rgba(121, 86, 61, 0.85);
+  margin-bottom: 0.45rem;
+}
+
+.calc-val {
+  font-weight: 700;
+  color: var(--color-coffee);
+  white-space: nowrap;
+}
+
+.calc-divider {
+  height: 1px;
+  background-color: rgba(121, 86, 61, 0.15);
+  margin: 0.75rem 0;
+}
+
+.calc-total-row {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-coffee);
+  margin-bottom: 0.85rem;
+}
+
+.calc-total-val {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--color-rose);
+}
+
+.calc-dp-box {
+  background: var(--color-cream);
+  border: 1px solid rgba(244, 215, 123, 0.6);
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+@media (min-width: 480px) {
+  .calc-dp-box {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.calc-dp-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.dp-label {
+  color: rgba(121, 86, 61, 0.75);
+  font-weight: 600;
+}
+
+.dp-val {
+  font-weight: 800;
+  color: var(--color-coffee);
+}
+
 
 /* =========================================================
    FOOTER

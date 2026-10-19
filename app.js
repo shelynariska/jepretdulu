@@ -272,10 +272,128 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================================================
-  // 5. PACKAGE SELECTION FROM PRICING CARDS
+  // 5. PACKAGE SELECTION & DYNAMIC PRICING CALCULATION
   // =========================================================
   const packageSelect = document.getElementById('packageSelect');
+  const peopleInput = document.getElementById('peopleInput');
+  const peopleHint = document.getElementById('peopleHint');
+  const extraSessionSelect = document.getElementById('extraSessionSelect');
   const selectPkgBtns = document.querySelectorAll('.select-pkg-btn');
+
+  // Breakdown elements
+  const calcPkgName = document.getElementById('calcPkgName');
+  const calcPkgPrice = document.getElementById('calcPkgPrice');
+  const calcExtraTimeRow = document.getElementById('calcExtraTimeRow');
+  const calcExtraTimeText = document.getElementById('calcExtraTimeText');
+  const calcExtraTimePrice = document.getElementById('calcExtraTimePrice');
+  const calcExtraPeopleRow = document.getElementById('calcExtraPeopleRow');
+  const calcExtraPeopleText = document.getElementById('calcExtraPeopleText');
+  const calcExtraPeoplePrice = document.getElementById('calcExtraPeoplePrice');
+  const calcTotalPrice = document.getElementById('calcTotalPrice');
+  const calcDpPrice = document.getElementById('calcDpPrice');
+  const calcRemainingPrice = document.getElementById('calcRemainingPrice');
+  const footnoteDp = document.getElementById('footnoteDp');
+
+  function formatRupiah(num) {
+    return 'Rp' + Number(num || 0).toLocaleString('id-ID');
+  }
+
+  function calculateBookingPrice() {
+    const pkgVal = packageSelect ? packageSelect.value : 'Nongkrong Cantik';
+    const isNongkrong = pkgVal.includes('Nongkrong Cantik');
+
+    const basePrice = isNongkrong ? 35000 : 55000;
+    const baseQuota = 1;
+    const pkgTitle = isNongkrong ? 'Nongkrong Cantik (30 mnt)' : 'Special Moments (30 mnt)';
+
+    let people = 1;
+    if (peopleInput && peopleInput.value) {
+      people = parseInt(peopleInput.value, 10);
+      if (isNaN(people) || people < 1) people = 1;
+    }
+
+    const extraPeopleCount = people > baseQuota ? (people - baseQuota) : 0;
+    const extraPeopleCost = extraPeopleCount * 10000;
+
+    let extraMinutes = 0;
+    if (extraSessionSelect && extraSessionSelect.value) {
+      extraMinutes = parseInt(extraSessionSelect.value, 10);
+      if (isNaN(extraMinutes) || extraMinutes < 0) extraMinutes = 0;
+    }
+    const extraSessionCost = (extraMinutes / 10) * 15000;
+
+    const totalCost = basePrice + extraSessionCost + extraPeopleCost;
+    const dpCost = Math.round(totalCost * 0.5);
+    const remainingCost = totalCost - dpCost;
+    const totalDuration = 30 + extraMinutes;
+
+    return {
+      pkgVal,
+      isNongkrong,
+      basePrice,
+      baseQuota,
+      pkgTitle,
+      people,
+      extraPeopleCount,
+      extraPeopleCost,
+      extraMinutes,
+      extraSessionCost,
+      totalDuration,
+      totalCost,
+      dpCost,
+      remainingCost
+    };
+  }
+
+  function updatePriceCalculation() {
+    const calc = calculateBookingPrice();
+
+    if (peopleHint) {
+      peopleHint.textContent = 'Kuota dasar paket: 1 orang. Nambah orang: +Rp10.000/orang.';
+    }
+
+    if (calcPkgName) calcPkgName.textContent = `Paket ${calc.pkgTitle}`;
+    if (calcPkgPrice) calcPkgPrice.textContent = formatRupiah(calc.basePrice);
+
+    if (calcExtraTimeRow) {
+      if (calc.extraMinutes > 0) {
+        calcExtraTimeRow.style.display = 'flex';
+        if (calcExtraTimeText) calcExtraTimeText.textContent = `Nambah Durasi (+${calc.extraMinutes} menit)`;
+        if (calcExtraTimePrice) calcExtraTimePrice.textContent = `+${formatRupiah(calc.extraSessionCost)}`;
+      } else {
+        calcExtraTimeRow.style.display = 'none';
+      }
+    }
+
+    if (calcExtraPeopleRow) {
+      if (calc.extraPeopleCount > 0) {
+        calcExtraPeopleRow.style.display = 'flex';
+        if (calcExtraPeopleText) calcExtraPeopleText.textContent = `Tambah Person (+${calc.extraPeopleCount} orang)`;
+        if (calcExtraPeoplePrice) calcExtraPeoplePrice.textContent = `+${formatRupiah(calc.extraPeopleCost)}`;
+      } else {
+        calcExtraPeopleRow.style.display = 'none';
+      }
+    }
+
+    if (calcTotalPrice) calcTotalPrice.textContent = formatRupiah(calc.totalCost);
+    if (calcDpPrice) calcDpPrice.textContent = formatRupiah(calc.dpCost);
+    if (calcRemainingPrice) calcRemainingPrice.textContent = formatRupiah(calc.remainingCost);
+    if (footnoteDp) footnoteDp.textContent = formatRupiah(calc.dpCost);
+  }
+
+  if (packageSelect) {
+    packageSelect.addEventListener('change', updatePriceCalculation);
+  }
+  if (peopleInput) {
+    peopleInput.addEventListener('input', updatePriceCalculation);
+    peopleInput.addEventListener('change', updatePriceCalculation);
+  }
+  if (extraSessionSelect) {
+    extraSessionSelect.addEventListener('change', updatePriceCalculation);
+  }
+
+  // Initial calculation
+  updatePriceCalculation();
 
   selectPkgBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -287,6 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
           }
         }
+        updatePriceCalculation();
       }
       const bookingSection = document.getElementById('booking');
       if (bookingSection) {
@@ -365,15 +484,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const formData = new FormData(bookingForm);
-      const pkg = formData.get('package') || 'Nongkrong Cantik';
       const name = (formData.get('name') || '').trim();
-      const people = formData.get('people');
+      const peopleRaw = formData.get('people');
       const date = formData.get('date');
       const time = formData.get('time');
       const area = (formData.get('area') || '').trim();
       const location = (formData.get('location') || '').trim();
 
-      if (!name || !people || !date || !time || !area || !location) {
+      if (!name || !peopleRaw || !date || !time || !area || !location) {
         if (formError) {
           formError.textContent = 'Harap lengkapi seluruh formulir booking.';
           formError.style.display = 'block';
@@ -396,25 +514,41 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      const calc = calculateBookingPrice();
       const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'];
       const dayName = dayNames[dayOfWeek];
+      const formattedDate = `${dayName}, ${day} ${monthNames[month - 1]} ${year}`;
 
-      // WhatsApp message template with area, venue, & transport info
+      const packageName = calc.isNongkrong ? 'Nongkrong Cantik' : 'Special Moments';
+      const peopleText = `${calc.people} orang${calc.extraPeopleCount > 0 ? ` (+${calc.extraPeopleCount})` : ''}`;
+      const durationText = `${calc.totalDuration} menit${calc.extraMinutes > 0 ? ` (+${calc.extraMinutes} mnt)` : ''}`;
+
+      // WhatsApp message: complete info, concise wording
       const messageLines = [
         'Halo Jepret Dulu! Aku mau booking sesi foto.',
         '',
-        `Paket: ${pkg}`,
+        'Detail Booking',
+        `Paket: ${packageName}`,
         `Nama: ${name}`,
-        `Hari / Tanggal: ${dayName}, ${date}`,
-        `Jam: ${time} WIB`,
-        `Jumlah orang: ${people}`,
-        `Wilayah: ${area}`,
-        `Lokasi Venue: ${location}`,
-        'Ket. Transport: FREE Transport (khusus lokasi jauh ada fee yang menyesuaikan)',
-        'Ket. Tempat: Cafe / kampus free izin kamera (jika ada charge kamera ditanggung customer)',
+        `Jadwal: ${formattedDate}, ${time} WIB`,
+        `Jumlah: ${peopleText}`,
+        `Durasi: ${durationText}`,
+        `Lokasi: ${location}, ${area}`,
         '',
-        'Sistem Pembayaran: DP 50% (Pelunasan 50% setelah bertemu admin di venue).',
-        'Aku sudah membaca dan menyetujui T&C Jepret Dulu! (Termasuk ketentuan Free Transport / fee menyesuaikan jika lokasi jauh, reschedule min. H-1, jadwal weekend fleksibel / weekday > 18.00 WIB, tanpa overtime, & hasil GDrive tanpa edit). Mohon cek ketersediaan jadwalnya, ya!'
+        'Rincian Biaya',
+        `• Paket: ${formatRupiah(calc.basePrice)}`,
+        ...(calc.extraMinutes > 0 ? [`• +${calc.extraMinutes} menit: +${formatRupiah(calc.extraSessionCost)}`] : []),
+        ...(calc.extraPeopleCount > 0 ? [`• +${calc.extraPeopleCount} orang: +${formatRupiah(calc.extraPeopleCost)}`] : []),
+        `• Total: ${formatRupiah(calc.totalCost)}`,
+        `• DP 50%: ${formatRupiah(calc.dpCost)} (transfer)`,
+        `• Pelunasan: ${formatRupiah(calc.remainingCost)} (di venue)`,
+        '',
+        'Catatan',
+        '• Free transport (lokasi jauh ada fee)',
+        '• Venue free izin kamera (charge kamera ditanggung customer)',
+        '',
+        'Aku sudah setuju T&C Jepret Dulu! Mohon cek jadwalnya, ya!'
       ];
 
       const waText = messageLines.join('\n');
