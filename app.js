@@ -289,6 +289,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const calcExtraPeopleRow = document.getElementById('calcExtraPeopleRow');
   const calcExtraPeopleText = document.getElementById('calcExtraPeopleText');
   const calcExtraPeoplePrice = document.getElementById('calcExtraPeoplePrice');
+  const editPhotoSelect = document.getElementById('editPhotoSelect');
+  const calcEditPhotoRow = document.getElementById('calcEditPhotoRow');
+  const calcEditPhotoPrice = document.getElementById('calcEditPhotoPrice');
   const calcTotalPrice = document.getElementById('calcTotalPrice');
   const calcDpPrice = document.getElementById('calcDpPrice');
   const calcRemainingPrice = document.getElementById('calcRemainingPrice');
@@ -322,7 +325,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const extraSessionCost = (extraMinutes / 10) * 15000;
 
-    const totalCost = basePrice + extraSessionCost + extraPeopleCost;
+    const editPhoto = !!(editPhotoSelect && editPhotoSelect.value === '1');
+    const editPhotoCost = editPhoto ? 5000 : 0;
+
+    const totalCost = basePrice + extraSessionCost + extraPeopleCost + editPhotoCost;
     const dpCost = Math.round(totalCost * 0.5);
     const remainingCost = totalCost - dpCost;
     const totalDuration = 30 + extraMinutes;
@@ -338,6 +344,8 @@ document.addEventListener('DOMContentLoaded', () => {
       extraPeopleCost,
       extraMinutes,
       extraSessionCost,
+      editPhoto,
+      editPhotoCost,
       totalDuration,
       totalCost,
       dpCost,
@@ -375,6 +383,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    if (calcEditPhotoRow) {
+      calcEditPhotoRow.style.display = calc.editPhoto ? 'flex' : 'none';
+      if (calcEditPhotoPrice) calcEditPhotoPrice.textContent = `+${formatRupiah(calc.editPhotoCost)}`;
+    }
+
     if (calcTotalPrice) calcTotalPrice.textContent = formatRupiah(calc.totalCost);
     if (calcDpPrice) calcDpPrice.textContent = formatRupiah(calc.dpCost);
     if (calcRemainingPrice) calcRemainingPrice.textContent = formatRupiah(calc.remainingCost);
@@ -390,6 +403,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (extraSessionSelect) {
     extraSessionSelect.addEventListener('change', updatePriceCalculation);
+  }
+  if (editPhotoSelect) {
+    editPhotoSelect.addEventListener('change', updatePriceCalculation);
   }
 
   // Initial calculation
@@ -562,6 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `• Paket: ${formatRupiah(calc.basePrice)}`,
         ...(calc.extraMinutes > 0 ? [`• +${calc.extraMinutes} menit: +${formatRupiah(calc.extraSessionCost)}`] : []),
         ...(calc.extraPeopleCount > 0 ? [`• +${calc.extraPeopleCount} orang: +${formatRupiah(calc.extraPeopleCost)}`] : []),
+        ...(calc.editPhoto ? [`• Edit 3 foto: +${formatRupiah(calc.editPhotoCost)}`] : []),
         `• Total: ${formatRupiah(calc.totalCost)}`,
         `• DP 50%: ${formatRupiah(calc.dpCost)} (transfer)`,
         `• Pelunasan: ${formatRupiah(calc.remainingCost)} (di venue)`,
