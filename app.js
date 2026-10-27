@@ -444,11 +444,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const day = chosenDate.getDay(); // 0 is Sunday, 6 is Saturday
 
       if (day >= 1 && day <= 5) {
-        // Weekday (Senin - Jumat) -> Only after 18:00
-        if (timeInput) timeInput.min = '18:00';
+        // Weekday (Senin - Jumat) -> Only from 17:00
+        if (timeInput) timeInput.min = '17:00';
         if (timeSlotNotice) {
           timeSlotNotice.className = 'col-span-2 time-notice weekday-notice';
-          timeSlotNotice.innerHTML = '🌙 <strong>Sesi Weekday (Senin–Jumat):</strong> Sesi hanya tersedia di atas pukul <strong>18.00 WIB</strong> (sesi malam).';
+          timeSlotNotice.innerHTML = '🌙 <strong>Sesi Weekday (Senin–Jumat):</strong> Sesi hanya tersedia mulai pukul <strong>17.00 WIB</strong> (sesi sore & malam).';
           timeSlotNotice.style.display = 'block';
         }
       } else {
@@ -505,9 +505,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const dayOfWeek = bookingDate.getDay(); // 0: Sun, 6: Sat, 1-5: Mon-Fri
       const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;
 
-      if (isWeekday && time < '18:00') {
+      if (isWeekday && time < '17:00') {
         if (formError) {
-          formError.textContent = 'Untuk hari Senin–Jumat (weekday), sesi foto hanya tersedia di atas pukul 18.00 WIB. Silakan pilih jam 18.00 ke atas atau pilih hari Sabtu/Minggu.';
+          formError.textContent = 'Untuk hari Senin–Jumat (weekday), sesi foto hanya tersedia mulai pukul 17.00 WIB. Silakan pilih jam 17.00 ke atas atau pilih hari Sabtu/Minggu.';
           formError.style.display = 'block';
         }
         if (timeInput) timeInput.focus();
