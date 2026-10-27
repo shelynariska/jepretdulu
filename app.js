@@ -428,6 +428,28 @@ document.addEventListener('DOMContentLoaded', () => {
   if (dateInput) {
     dateInput.min = new Date().toISOString().split('T')[0];
 
+    // Build 24-hour time options (every 30 minutes, 00.00 - 23.30)
+    function setMinTime(minVal) {
+      if (!timeInput) return;
+      Array.from(timeInput.options).forEach(opt => {
+        if (!opt.value) return;
+        opt.disabled = !!minVal && opt.value < minVal;
+      });
+      if (timeInput.value && minVal && timeInput.value < minVal) timeInput.value = '';
+    }
+
+    if (timeInput && timeInput.tagName === 'SELECT') {
+      for (let h = 0; h < 24; h++) {
+        ['00', '30'].forEach(mm => {
+          const val = String(h).padStart(2, '0') + ':' + mm;
+          const opt = document.createElement('option');
+          opt.value = val;
+          opt.textContent = val.replace(':', '.');
+          timeInput.appendChild(opt);
+        });
+      }
+    }
+
     function checkScheduleAvailability() {
       const dateVal = dateInput.value;
       if (!dateVal) {
@@ -435,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
           timeSlotNotice.style.display = 'none';
           timeSlotNotice.innerHTML = '';
         }
-        if (timeInput) timeInput.removeAttribute('min');
+        setMinTime(null);
         return;
       }
 
@@ -445,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (day >= 1 && day <= 5) {
         // Weekday (Senin - Jumat) -> Only from 17:00
-        if (timeInput) timeInput.min = '17:00';
+        setMinTime('17:00');
         if (timeSlotNotice) {
           timeSlotNotice.className = 'col-span-2 time-notice weekday-notice';
           timeSlotNotice.innerHTML = '🌙 <strong>Sesi Weekday (Senin–Jumat):</strong> Sesi hanya tersedia mulai pukul <strong>17.00 WIB</strong> (sesi sore & malam).';
@@ -453,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } else {
         // Weekend (Sabtu & Minggu) -> Flexible all day
-        if (timeInput) timeInput.removeAttribute('min');
+        setMinTime(null);
         if (timeSlotNotice) {
           timeSlotNotice.className = 'col-span-2 time-notice weekend-notice';
           timeSlotNotice.innerHTML = '☀️ <strong>Sesi Weekend (Sabtu–Minggu):</strong> Ketersediaan fleksibel seharian.';
