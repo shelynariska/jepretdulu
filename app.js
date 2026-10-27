@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const calc = calculateBookingPrice();
 
     if (peopleHint) {
-      peopleHint.textContent = 'Kuota dasar paket: 1 orang. Nambah orang: +Rp10.000/orang.';
+      peopleHint.textContent = 'Kuota dasar paket: 1 orang. Tambah orang: +Rp10.000/orang.';
     }
 
     if (calcPkgName) calcPkgName.textContent = `Paket ${calc.pkgTitle}`;
@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (calcExtraTimeRow) {
       if (calc.extraMinutes > 0) {
         calcExtraTimeRow.style.display = 'flex';
-        if (calcExtraTimeText) calcExtraTimeText.textContent = `Nambah Durasi (+${calc.extraMinutes} menit)`;
+        if (calcExtraTimeText) calcExtraTimeText.textContent = `Tambah Durasi (+${calc.extraMinutes} menit)`;
         if (calcExtraTimePrice) calcExtraTimePrice.textContent = `+${formatRupiah(calc.extraSessionCost)}`;
       } else {
         calcExtraTimeRow.style.display = 'none';
