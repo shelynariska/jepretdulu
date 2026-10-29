@@ -283,6 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Breakdown elements
   const calcPkgName = document.getElementById('calcPkgName');
   const calcPkgPrice = document.getElementById('calcPkgPrice');
+  const calcPkgBonusRow = document.getElementById('calcPkgBonusRow');
   const calcExtraTimeRow = document.getElementById('calcExtraTimeRow');
   const calcExtraTimeText = document.getElementById('calcExtraTimeText');
   const calcExtraTimePrice = document.getElementById('calcExtraTimePrice');
@@ -304,7 +305,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const basePrice = isNongkrong ? 35000 : 55000;
     const baseQuota = 1;
-    const pkgTitle = isNongkrong ? 'Nongkrong Cantik (30 mnt)' : 'Special Moments (30 mnt)';
+    const baseDuration = isNongkrong ? 30 : 35;
+    const pkgTitle = isNongkrong ? 'Nongkrong Cantik (30 mnt)' : 'Special Moments (35 mnt)';
 
     let people = 1;
     if (peopleInput && peopleInput.value) {
@@ -325,13 +327,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalCost = basePrice + extraSessionCost + extraPeopleCost;
     const dpCost = Math.round(totalCost * 0.5);
     const remainingCost = totalCost - dpCost;
-    const totalDuration = 30 + extraMinutes;
+    const totalDuration = baseDuration + extraMinutes;
 
     return {
       pkgVal,
       isNongkrong,
       basePrice,
       baseQuota,
+      baseDuration,
       pkgTitle,
       people,
       extraPeopleCount,
@@ -354,6 +357,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (calcPkgName) calcPkgName.textContent = `Paket ${calc.pkgTitle}`;
     if (calcPkgPrice) calcPkgPrice.textContent = formatRupiah(calc.basePrice);
+
+    if (calcPkgBonusRow) {
+      calcPkgBonusRow.style.display = calc.isNongkrong ? 'none' : 'flex';
+    }
 
     if (calcExtraTimeRow) {
       if (calc.extraMinutes > 0) {
@@ -557,6 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `Jumlah: ${peopleText}`,
         `Durasi: ${durationText}`,
         `Lokasi: ${location}, ${area}`,
+        ...(!calc.isNongkrong ? ['Benefit: Tambahan waktu 5 menit & FREE edit 3 foto sampai cocok ✨'] : []),
         '',
         'Rincian Biaya',
         `• Paket: ${formatRupiah(calc.basePrice)}`,
@@ -567,6 +575,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `• Pelunasan: ${formatRupiah(calc.remainingCost)} (di venue)`,
         '',
         'Catatan',
+        '• Jam booking = waktu sesi dimulai (harap hadir 10 mnt sebelumnya)',
+        '• Telat = durasi sesi terpotong (foto sesuai sisa waktu jadwal booking)',
         '• Free transport (lokasi jauh ada fee)',
         '• Venue free izin kamera (charge kamera ditanggung customer)',
         '',
