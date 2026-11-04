@@ -277,7 +277,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const packageSelect = document.getElementById('packageSelect');
   const peopleInput = document.getElementById('peopleInput');
   const peopleHint = document.getElementById('peopleHint');
+  const sessionCountSelect = document.getElementById('sessionCountSelect');
+  const sessionHint = document.getElementById('sessionHint');
   const extraSessionSelect = document.getElementById('extraSessionSelect');
+  const areaSelect = document.getElementById('areaSelect');
   const selectPkgBtns = document.querySelectorAll('.select-pkg-btn');
 
   // Breakdown elements
@@ -290,6 +293,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const calcExtraPeopleRow = document.getElementById('calcExtraPeopleRow');
   const calcExtraPeopleText = document.getElementById('calcExtraPeopleText');
   const calcExtraPeoplePrice = document.getElementById('calcExtraPeoplePrice');
+  const calcTransportRow = document.getElementById('calcTransportRow');
+  const calcTransportText = document.getElementById('calcTransportText');
+  const calcTransportVal = document.getElementById('calcTransportVal');
   const calcTotalPrice = document.getElementById('calcTotalPrice');
   const calcDpPrice = document.getElementById('calcDpPrice');
   const calcRemainingPrice = document.getElementById('calcRemainingPrice');
@@ -303,10 +309,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const pkgVal = packageSelect ? packageSelect.value : 'Nongkrong Cantik';
     const isNongkrong = pkgVal.includes('Nongkrong Cantik');
 
-    const basePrice = isNongkrong ? 35000 : 55000;
+    const baseUnitPrice = isNongkrong ? 35000 : 55000;
     const baseQuota = 1;
-    const baseDuration = isNongkrong ? 30 : 35;
-    const pkgTitle = isNongkrong ? 'Nongkrong Cantik (30 mnt)' : 'Special Moments (35 mnt)';
+
+    let sessionMultiplier = 1;
+    if (sessionCountSelect && sessionCountSelect.value) {
+      sessionMultiplier = parseInt(sessionCountSelect.value, 10);
+      if (isNaN(sessionMultiplier) || sessionMultiplier < 1) sessionMultiplier = 1;
+    }
+
+    const packageBaseDuration = isNongkrong ? 30 : 35;
+    const sessionTotalDuration = packageBaseDuration * sessionMultiplier;
+    const packageTotalCost = baseUnitPrice * sessionMultiplier;
+
+    const nominalHours = (sessionMultiplier * 30) / 60;
+    const hourText = nominalHours === 0.5 ? '30 mnt' : `${String(nominalHours).replace('.', ',')} Jam`;
+    const sessionLabel = nominalHours === 0.5
+      ? (isNongkrong ? '30 mnt' : '35 mnt')
+      : `${hourText} / ${sessionTotalDuration} mnt`;
+
+    const pkgTitle = isNongkrong
+      ? `Nongkrong Cantik (${sessionMultiplier} Sesi · ${sessionLabel})`
+      : `Special Moments (${sessionMultiplier} Sesi · ${sessionLabel})`;
 
     let people = 1;
     if (peopleInput && peopleInput.value) {
@@ -315,26 +339,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const extraPeopleCount = people > baseQuota ? (people - baseQuota) : 0;
-    const extraPeopleCost = extraPeopleCount * 10000;
+    const extraPeopleCost = extraPeopleCount * 15000;
 
     let extraMinutes = 0;
     if (extraSessionSelect && extraSessionSelect.value) {
       extraMinutes = parseInt(extraSessionSelect.value, 10);
       if (isNaN(extraMinutes) || extraMinutes < 0) extraMinutes = 0;
     }
-    const extraSessionCost = (extraMinutes / 10) * 15000;
+    const extraSessionCost = (extraMinutes / 10) * 10000;
 
-    const totalCost = basePrice + extraSessionCost + extraPeopleCost;
+    const totalCost = packageTotalCost + extraSessionCost + extraPeopleCost;
     const dpCost = Math.round(totalCost * 0.5);
     const remainingCost = totalCost - dpCost;
-    const totalDuration = baseDuration + extraMinutes;
+    const totalDuration = sessionTotalDuration + extraMinutes;
+
+    const area = areaSelect ? areaSelect.value : 'Surabaya Barat';
+    const isSurabayaBarat = area.includes('Surabaya Barat');
 
     return {
       pkgVal,
       isNongkrong,
-      basePrice,
+      baseUnitPrice,
+      sessionMultiplier,
+      packageTotalCost,
+      packageBaseDuration,
+      sessionTotalDuration,
+      sessionLabel,
       baseQuota,
-      baseDuration,
       pkgTitle,
       people,
       extraPeopleCount,
@@ -342,6 +373,8 @@ document.addEventListener('DOMContentLoaded', () => {
       extraMinutes,
       extraSessionCost,
       totalDuration,
+      area,
+      isSurabayaBarat,
       totalCost,
       dpCost,
       remainingCost
@@ -352,20 +385,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const calc = calculateBookingPrice();
 
     if (peopleHint) {
-      peopleHint.textContent = 'Kuota dasar paket: 1 orang. Tambah orang: +Rp10.000/orang.';
+      peopleHint.textContent = 'Kuota dasar paket: 1 orang. Tambah orang: +Rp15.000/orang.';
+    }
+
+    if (sessionHint) {
+      if (calc.isNongkrong) {
+        sessionHint.textContent = '1 paket = 30 mnt. Ambil 1 jam = 2 sesi, hingga 3–5 jam (berlaku kelipatan sesi).';
+      } else {
+        sessionHint.textContent = 'Special Moments: 1 sesi = 35 mnt (ada bonus 5 mnt/sesi). Tersedia hingga 3–5 jam (berlaku kelipatan).';
+      }
     }
 
     if (calcPkgName) calcPkgName.textContent = `Paket ${calc.pkgTitle}`;
-    if (calcPkgPrice) calcPkgPrice.textContent = formatRupiah(calc.basePrice);
+    if (calcPkgPrice) calcPkgPrice.textContent = formatRupiah(calc.packageTotalCost);
 
     if (calcPkgBonusRow) {
-      calcPkgBonusRow.style.display = calc.isNongkrong ? 'none' : 'flex';
+      if (!calc.isNongkrong) {
+        calcPkgBonusRow.style.display = 'flex';
+        const calcBonusText = document.getElementById('calcBonusText');
+        if (calcBonusText) {
+          const bonusMin = 5 * calc.sessionMultiplier;
+          const bonusEdit = 3 * calc.sessionMultiplier;
+          calcBonusText.textContent = `✨ Benefit: Tambahan ${bonusMin} mnt + Free edit ${bonusEdit} foto sampai cocok`;
+        }
+      } else {
+        calcPkgBonusRow.style.display = 'none';
+      }
     }
 
     if (calcExtraTimeRow) {
       if (calc.extraMinutes > 0) {
         calcExtraTimeRow.style.display = 'flex';
-        if (calcExtraTimeText) calcExtraTimeText.textContent = `Tambah Durasi (+${calc.extraMinutes} menit)`;
+        if (calcExtraTimeText) calcExtraTimeText.textContent = `Tambah Waktu Ekstra (+${calc.extraMinutes} menit)`;
         if (calcExtraTimePrice) calcExtraTimePrice.textContent = `+${formatRupiah(calc.extraSessionCost)}`;
       } else {
         calcExtraTimeRow.style.display = 'none';
@@ -382,6 +433,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    if (calcTransportText && calcTransportVal) {
+      calcTransportText.textContent = 'Biaya Transport';
+      if (calc.isSurabayaBarat) {
+        calcTransportVal.textContent = 'FREE (Surabaya Barat)';
+        calcTransportVal.style.color = '#2e7d32';
+      } else {
+        calcTransportVal.textContent = 'Exclude fee transport';
+        calcTransportVal.style.color = '#c45d4c';
+      }
+    }
+
+    const areaHint = document.getElementById('areaHint');
+    if (areaHint) {
+      if (calc.isSurabayaBarat) {
+        areaHint.textContent = 'FREE transport khusus Surabaya Barat.';
+        areaHint.style.color = '';
+      } else {
+        areaHint.textContent = `Wilayah ${calc.area}: Exclude fee transport (fee transport via WhatsApp).`;
+        areaHint.style.color = '#b04a3b';
+      }
+    }
+
     if (calcTotalPrice) calcTotalPrice.textContent = formatRupiah(calc.totalCost);
     if (calcDpPrice) calcDpPrice.textContent = formatRupiah(calc.dpCost);
     if (calcRemainingPrice) calcRemainingPrice.textContent = formatRupiah(calc.remainingCost);
@@ -391,12 +464,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (packageSelect) {
     packageSelect.addEventListener('change', updatePriceCalculation);
   }
+  if (sessionCountSelect) {
+    sessionCountSelect.addEventListener('change', updatePriceCalculation);
+  }
   if (peopleInput) {
     peopleInput.addEventListener('input', updatePriceCalculation);
     peopleInput.addEventListener('change', updatePriceCalculation);
   }
   if (extraSessionSelect) {
     extraSessionSelect.addEventListener('change', updatePriceCalculation);
+  }
+  if (areaSelect) {
+    areaSelect.addEventListener('change', updatePriceCalculation);
   }
 
   // Initial calculation
@@ -550,8 +629,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const formattedDate = `${dayName}, ${day} ${monthNames[month - 1]} ${year}`;
 
       const packageName = calc.isNongkrong ? 'Nongkrong Cantik' : 'Special Moments';
-      const peopleText = `${calc.people} orang${calc.extraPeopleCount > 0 ? ` (+${calc.extraPeopleCount})` : ''}`;
-      const durationText = `${calc.totalDuration} menit${calc.extraMinutes > 0 ? ` (+${calc.extraMinutes} mnt)` : ''}`;
+      const sessionText = `${calc.sessionMultiplier} Sesi (${calc.sessionLabel})`;
+      const peopleText = `${calc.people} orang${calc.extraPeopleCount > 0 ? ` (+${calc.extraPeopleCount} ekstra)` : ''}`;
+      const durationText = `${calc.totalDuration} menit${calc.extraMinutes > 0 ? ` (sesi ${calc.sessionTotalDuration} mnt + ekstra ${calc.extraMinutes} mnt)` : ''}`;
 
       // WhatsApp message: complete info, concise wording
       const messageLines = [
@@ -559,17 +639,18 @@ document.addEventListener('DOMContentLoaded', () => {
         '',
         'Detail Booking',
         `Paket: ${packageName}`,
+        `Pilihan Sesi: ${sessionText}`,
         `Nama: ${name}`,
         `Jadwal: ${formattedDate}, ${time} WIB`,
         `Jumlah: ${peopleText}`,
-        `Durasi: ${durationText}`,
-        `Lokasi: ${location}, ${area}`,
-        ...(!calc.isNongkrong ? ['Benefit: Tambahan waktu 5 menit & FREE edit 3 foto sampai cocok ✨'] : []),
+        `Total Durasi: ${durationText}`,
+        `Lokasi: ${location}, ${area} (${calc.isSurabayaBarat ? 'FREE Transport' : 'Exclude Transport'})`,
+        ...(!calc.isNongkrong ? [`Benefit: Tambahan waktu ${5 * calc.sessionMultiplier} mnt & FREE edit ${3 * calc.sessionMultiplier} foto sampai cocok ✨`] : []),
         '',
         'Rincian Biaya',
-        `• Paket: ${formatRupiah(calc.basePrice)}`,
-        ...(calc.extraMinutes > 0 ? [`• +${calc.extraMinutes} menit: +${formatRupiah(calc.extraSessionCost)}`] : []),
-        ...(calc.extraPeopleCount > 0 ? [`• +${calc.extraPeopleCount} orang: +${formatRupiah(calc.extraPeopleCost)}`] : []),
+        `• Paket (${calc.sessionMultiplier} sesi): ${formatRupiah(calc.packageTotalCost)}`,
+        ...(calc.extraMinutes > 0 ? [`• Tambah waktu ekstra (+${calc.extraMinutes} menit): +${formatRupiah(calc.extraSessionCost)}`] : []),
+        ...(calc.extraPeopleCount > 0 ? [`• Tambah person (+${calc.extraPeopleCount} orang): +${formatRupiah(calc.extraPeopleCost)}`] : []),
         `• Total: ${formatRupiah(calc.totalCost)}`,
         `• DP 50%: ${formatRupiah(calc.dpCost)} (transfer)`,
         `• Pelunasan: ${formatRupiah(calc.remainingCost)} (di venue)`,
@@ -577,7 +658,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'Catatan',
         '• Jam booking = waktu sesi dimulai (harap hadir 10 mnt sebelumnya)',
         '• Telat = durasi sesi terpotong (foto sesuai sisa waktu jadwal booking)',
-        '• Free transport (lokasi jauh ada fee)',
+        calc.isSurabayaBarat
+          ? '• Transport: FREE transport (area Surabaya Barat)'
+          : `• Transport: Exclude fee transport (area ${calc.area}, fee transport menyesuaikan jarak)`,
         '• Venue free izin kamera (charge kamera ditanggung customer)',
         '',
         'Aku sudah setuju T&C Jepret Dulu! Mohon cek jadwalnya, ya!'
